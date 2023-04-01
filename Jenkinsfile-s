@@ -1,48 +1,36 @@
-//node('workstation') {
-//
-//    properties([
-//        parameters([
-//            string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Environment')
-//        ])
-//    ])
-//
-//    env.SAMPLE_URL = "google.com"
-//    try {
-//        withCredentials([usernameColonPassword(credentialsId: 'SSH', variable: 'USERPASS')]) {
-//            stage("one") {
-//                echo "one"
-//                sh 'env'
-//                sh 'env >/tmp/env'
-//            }
-//        }
-//
-//
-//        stage('two') {
-//            input(id: 'deploy_approval', message: 'Approve deployment?', ok: 'Deploy', reject: 'Cancel') {
-//            echo "two"
-//        }
-//
-//        }
-//    } catch (e) {
-//        stage('Declarative: Post Actions') {
-//            echo 'This will run only if failed'
-//        }
-//
-//    }
-//
-//}
-//
+node('workstation') {
 
-node {
     properties([
         parameters([
-            string(name: 'ENV', defaultValue: 'dev', description: 'Environment')
+            string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Environment')
         ])
     ])
 
-    stage('Deploy') {
-        // Your deployment code goes here
+    env.SAMPLE_URL = "google.com"
+    try {
+        withCredentials([usernameColonPassword(credentialsId: 'SSH', variable: 'USERPASS')]) {
+            stage("one") {
+                echo "one"
+                sh 'env'
+                sh 'env >/tmp/env'
+            }
+        }
 
-        input(id: 'deploy_approval', message: 'Approve deployment?', ok: 'Deploy', reject: 'Cancel')
+        if ( PERSON == "RAGHU" ) {
+            stage('two') {
+                input(id: 'deploy_approval', message: 'Approve deployment?', ok: 'Deploy', reject: 'Cancel')
+                echo "two"
+            }
+        }
+
+    } catch (e) {
+        stage('Declarative: Post Actions') {
+            echo 'This will run only if failed'
+        }
+
     }
+
 }
+
+
+
