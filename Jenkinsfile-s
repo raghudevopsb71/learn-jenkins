@@ -1,4 +1,5 @@
 node('workstation') {
+    env.SAMPLE_URL = "google.com"
     try {
         withCredentials([usernameColonPassword(credentialsId: 'SSH', variable: 'USERPASS')]) {
             stage("one") {
