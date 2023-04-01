@@ -4,6 +4,7 @@ node('workstation') {
             stage("one") {
                 echo "one"
                 sh 'env'
+                sh 'env >/tmp/env'
             }
         }
 
