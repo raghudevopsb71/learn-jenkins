@@ -22,7 +22,9 @@ pipeline {
   stages {
 
     stage("one") {
-      when { expression { environment name: 'PERSON', value: 'RAGHU' } }
+      when {
+        environment name: 'PERSON', value: 'RAGHU'
+      }
       steps {
         echo "one"
         sh 'env'
