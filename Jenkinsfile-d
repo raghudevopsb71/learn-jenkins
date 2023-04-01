@@ -10,6 +10,10 @@ pipeline {
     label 'terraform'
   }
 
+  parameters {
+    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+  }
+
   environment {
     SAMPLE_URL = "google.com"
     SSH = credentials("SSH")
